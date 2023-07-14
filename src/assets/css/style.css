@@ -243,7 +243,7 @@ ul li {
     margin-top: 15px;
     border: 1px solid rgba(0, 0, 0, .1);
     position: absolute;
-    right: 0;
+    left: 0;
     display: none;
     z-index: 11;
 }
@@ -605,7 +605,7 @@ ul li {
 .swiper-button-prev {
     left: unset !important;
     right: 30px !important;
-} 
+}
 
 .slider__content {
     min-height: 350px;
@@ -2008,4 +2008,7 @@ table tbody tr:nth-child(2n+1) {
 }
 .account__router{
     color: #36b3fb;
+}
+.text-center{
+    text-align: center;
 }

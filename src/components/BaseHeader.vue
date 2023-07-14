@@ -146,7 +146,7 @@
                   <div class="header__basket-btn">
                     <router-link
                       :to="{ name: 'Cart' }"
-                      class="btn btn--boxshadow btn--brand w--100"
+                      class="btn btn--boxshadow btn--brand w--100 text-center"
                       >complete order</router-link
                     >
                   </div>
@@ -154,10 +154,10 @@
               </div>
             </div>
             <div class="header__account">
-              <span
-                class="header__account-icon"
-                @click="showDropDownAccount"
-              ></span>
+<!--              <span-->
+<!--                class="header__account-icon"-->
+<!--                @click="showDropDownAccount"-->
+<!--              ></span>-->
               <div
                 class="header__dropdown header__dropdown--w200"
                 :class="{ 'header__dropdown--is-active': isAccountDropDown }"
