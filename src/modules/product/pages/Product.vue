@@ -4,7 +4,7 @@
       <div class="modal__content">
         <span class="modal__close" @click="closeModal">&times;</span>
         <div class="modal__body" tabindex="0" @focusout="closeModal">
-          <img :src="modalImage" class="show__gallery" />
+          <img :src="modalImage" class="show__gallery"/>
         </div>
       </div>
     </div>
@@ -13,29 +13,29 @@
         <ul class="breadcrumb">
           <li class="breadcrumb__item breadcrumb__item--hide">
             <a href="" class="breadcrumb__link"
-              ><span class="breadcrumb__span">home</span></a
+            ><span class="breadcrumb__span">خانه</span></a
             >
           </li>
           <li class="breadcrumb__item">
             <a href="" class="breadcrumb__link"
-              ><span class="breadcrumb__span">products</span></a
+            ><span class="breadcrumb__span">محصول</span></a
             >
           </li>
           <li class="breadcrumb__item">
             <a href="" class="breadcrumb__link"
-              ><span class="breadcrumb__span"
-                >product number {{ $route.params.id }}</span
-              ></a
+            ><span class="breadcrumb__span"
+            >محصول با شماره {{ $route.params.id }}</span
+            ></a
             >
           </li>
         </ul>
         <div class="product">
           <div class="product__header">
-            <div class="product__expiration">
-              <div class="count-down__timer" id="count-dowm__timer">
-                {{ diff }}
-              </div>
-            </div>
+            <!--            <div class="product__expiration">-->
+            <!--              <div class="count-down__timer" id="count-dowm__timer">-->
+            <!--                {{ diff }}-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="product__row">
               <div class="prodcut__gallery">
                 <div class="gallery">
@@ -43,45 +43,56 @@
                     <span class="gallery__count">
                       <span class="gallery__number1">{{ slideIndex + 1 }}</span>
                       <span class="gallery__number2">{{
-                        gallerySlides.length
-                      }}</span>
+                          gallerySlides.length
+                        }}</span>
                     </span>
                     <div class="gallery__slides">
                       <div class="gallery__slide">
                         <img
+                          v-if="this.product
+                          &&this.product['images']"
                           class="gallery__img"
-                          :src="slide.img"
+                          :src="
+                          this.product
+                          &&this.product['images']
+                          &&this.product['images']['data']
+                          &&this.product['images']['data'][slideIndex]
+                          &&this.product['images']['data'][slideIndex]['link'][0]
+                          ?this.product['images']['data'][slideIndex]['link'][0]
+                          :''"
                           alt=""
-                          v-for="(slide, index) in gallerySlides"
+                          v-for="(slide, index) in this.product['images']['data']"
                           :key="index"
                           :style="
                             slideIndex === index
                               ? 'display:block;'
                               : 'display:none;'
                           "
-                          @click="showModal(slide.img)"
+                          @click="showModal(slide['link'][0])"
                         />
                       </div>
                     </div>
                     <a @click.prevent="move(-1)" class="gallery__prev"
-                      >&#10095;</a
+                    >&#10095;</a
                     >
                     <a @click.prevent="move(1)" class="gallery__next"
-                      >&#10094;</a
+                    >&#10094;</a
                     >
                   </div>
                   <div class="gallery__content">
                     <div class="gallery__items">
                       <div
+                        v-if="this.product
+                          &&this.product['images']"
                         class="gallery__item"
                         :class="{
                           'gallery__item--is-acitve': slideIndex === index
                         }"
-                        v-for="(slide, index) in gallerySlides"
+                        v-for="(slide, index) in this.product['images']['data']"
                         :key="`item-${index}`"
                       >
                         <img
-                          :src="slide.img"
+                          :src="slide['link'][0]"
                           @click="currentSlide(index)"
                           class="gallery__item-img"
                         />
@@ -91,9 +102,9 @@
                 </div>
               </div>
               <div class="product__left">
-                <div class="product__category">web category</div>
+<!--                <div class="product__category">web category</div>-->
                 <div class="product__info">
-                  <h1 class="product__title">{{ product?.name }}</h1>
+                  <h1 class="product__title">{{ product?.title_fa }}</h1>
                   <div class="rating">
                     <div class="rating__star">
                       <span
@@ -108,7 +119,7 @@
                     </div>
                     <div
                       class="rating__fstar"
-                      :style="showRate ? `width: ${rateWidth}%` : ''"
+                      :style="showRate ? `width: 95%` : ''"
                     >
                       <span class="rating__frate"></span>
                       <span class="rating__frate"></span>
@@ -122,12 +133,12 @@
                     <span class="rating__num">(65)</span>
                   </div>
                 </div>
-                <div>
+                <div style="margin-top: 50px">
                   <button
                     class="btn btn--boxshadow btn--brand"
                     @click="addItem(product)"
                   >
-                    add to cart
+                    افزودن به سبد خرید
                   </button>
                 </div>
                 <div class="controls"></div>
@@ -135,32 +146,32 @@
             </div>
           </div>
         </div>
-        <SwiperSlider v-if="products.length">
-          <template v-slot:title> Related products </template>
-          <router-link
-            :to="{ name: 'Product', params: { id: 1 } }"
-            class="swiper-slide"
-            v-for="item in products"
-            :key="item.id"
-          >
-            <div class="card">
-              <div class="card__image">
-                <img
-                  :src="require(`@/assets/img/slider/${item.id}.jpg`)"
-                  alt=""
-                  class="card__img"
-                />
-              </div>
-              <div class="card__title2">{{ item.name }}</div>
-              <div class="card__price">
-                <span class="card__total-price">{{
-                  formattedPrice(item.price)
-                }}</span>
-              </div>
-              <span class="card__discount">%6</span>
-            </div>
-          </router-link>
-        </SwiperSlider>
+<!--        <SwiperSlider v-if="products.length">-->
+<!--          <template v-slot:title> Related products</template>-->
+<!--          <router-link-->
+<!--            :to="{ name: 'Product', params: { id: 1 } }"-->
+<!--            class="swiper-slide"-->
+<!--            v-for="item in products"-->
+<!--            :key="item.id"-->
+<!--          >-->
+<!--            <div class="card">-->
+<!--              <div class="card__image">-->
+<!--                <img-->
+<!--                  :src="require(`@/assets/img/slider/${item.id}.jpg`)"-->
+<!--                  alt=""-->
+<!--                  class="card__img"-->
+<!--                />-->
+<!--              </div>-->
+<!--              <div class="card__title2">{{ item.name }}</div>-->
+<!--              <div class="card__price">-->
+<!--                <span class="card__total-price">{{-->
+<!--                    formattedPrice(item.price)-->
+<!--                  }}</span>-->
+<!--              </div>-->
+<!--              <span class="card__discount">%6</span>-->
+<!--            </div>-->
+<!--          </router-link>-->
+<!--        </SwiperSlider>-->
         <div class="product-details">
           <div class="tab">
             <div class="tab__items">
@@ -168,28 +179,31 @@
                 class="tab__item tab__item--compare"
                 :class="{ 'tab__item--is-active': activeTab === 'compare' }"
                 @click="activeTab = 'compare'"
-                >Review</span
+              >توضیحات</span
               >
               <span
                 class="tab__item tab__item--featrues"
                 :class="{ 'tab__item--is-active': activeTab === 'featrues' }"
                 @click="activeTab = 'featrues'"
-                >Attributes</span
+              >ویژگی ها</span
               >
-              <span
-                class="tab__item tab__item--comments"
-                :class="{ 'tab__item--is-active': activeTab === 'comments' }"
-                @click="activeTab = 'comments'"
-                >Comments</span
-              >
+<!--              <span-->
+<!--                class="tab__item tab__item&#45;&#45;comments"-->
+<!--                :class="{ 'tab__item&#45;&#45;is-active': activeTab === 'comments' }"-->
+<!--                @click="activeTab = 'comments'"-->
+<!--              >Comments</span-->
+<!--              >-->
             </div>
             <div class="tab__sections">
               <CompareTab
+                :product="product"
                 :style="
                   activeTab === 'compare' ? 'display:block;' : 'display:none;'
                 "
               />
               <FeaturesTab
+                :product="product"
+
                 :style="
                   activeTab === 'featrues' ? 'display:block;' : 'display:none;'
                 "
@@ -217,8 +231,8 @@ import '../assets/css/modal.css'
 
 import axios from 'axios'
 
-import { SET_PRODUCTS_MUTATIONS } from '@/modules/product/store/types'
-import { mapMutations, mapState, mapActions, mapGetters } from 'vuex'
+import {SET_PRODUCTS_MUTATIONS} from '@/modules/product/store/types'
+import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 
 export default {
   name: 'Product',
@@ -236,21 +250,21 @@ export default {
       diff: null,
       countDownInterval: null,
       gallerySlides: [
-        { img: require('@/assets/img/slider/1.jpg') },
-        { img: require('@/assets/img/slider/2.jpg') },
-        { img: require('@/assets/img/slider/3.jpg') },
-        { img: require('@/assets/img/slider/4.jpg') },
-        { img: require('@/assets/img/slider/4.jpg') },
-        { img: require('@/assets/img/slider/3.jpg') },
-        { img: require('@/assets/img/slider/3.jpg') },
-        { img: require('@/assets/img/slider/3.jpg') }
+        {img: require('@/assets/img/slider/1.jpg')},
+        {img: require('@/assets/img/slider/2.jpg')},
+        {img: require('@/assets/img/slider/3.jpg')},
+        {img: require('@/assets/img/slider/4.jpg')},
+        {img: require('@/assets/img/slider/4.jpg')},
+        {img: require('@/assets/img/slider/3.jpg')},
+        {img: require('@/assets/img/slider/3.jpg')},
+        {img: require('@/assets/img/slider/3.jpg')}
       ],
       ratings: [
-        { width: 100, title: 'awesome' },
-        { width: 80, title: 'good' },
-        { width: 60, title: 'normal' },
-        { width: 40, title: 'weak' },
-        { width: 20, title: 'bad' }
+        {width: 100, title: 'awesome'},
+        {width: 80, title: 'good'},
+        {width: 60, title: 'normal'},
+        {width: 40, title: 'weak'},
+        {width: 20, title: 'bad'}
       ],
       slideIndex: 0,
       isShowingModal: false,
@@ -261,18 +275,18 @@ export default {
       colorsOptions: ['red', 'green', 'blue'],
       selectedLang: [],
       langOptions: [
-        { name: 'Vue.js', language: 'JavaScript' },
-        { name: 'Adonis', language: 'JavaScript' },
-        { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
-        { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' }
+        {name: 'Vue.js', language: 'JavaScript'},
+        {name: 'Adonis', language: 'JavaScript'},
+        {name: 'Rails', language: 'Ruby'},
+        {name: 'Sinatra', language: 'Ruby'},
+        {name: 'Laravel', language: 'PHP'},
+        {name: 'Phoenix', language: 'Elixir'}
       ],
       slides: [
-        { img: require('@/assets/img/slideshow/1.png') },
-        { img: require('@/assets/img/slideshow/2.png') },
-        { img: require('@/assets/img/slideshow/3.png') },
-        { img: require('@/assets/img/slideshow/4.png') }
+        {img: require('@/assets/img/slideshow/1.png')},
+        {img: require('@/assets/img/slideshow/2.png')},
+        {img: require('@/assets/img/slideshow/3.png')},
+        {img: require('@/assets/img/slideshow/4.png')}
       ],
       activeTab: 'compare',
       product: {}
@@ -286,10 +300,10 @@ export default {
 
   methods: {
     move(n) {
-      if (this.gallerySlides.length <= this.slideIndex + n) {
+      if (this.product['images']['data'].length <= this.slideIndex + n) {
         this.slideIndex = 0
       } else if (this.slideIndex + n < 0) {
-        this.slideIndex = this.gallerySlides.length - 1
+        this.slideIndex =this.product['images']['data'].length - 1
       } else {
         this.slideIndex += n
       }
@@ -336,14 +350,15 @@ export default {
     )
 
     if (!this.product) {
-      const { data } = await axios.get(
-        'https://gist.githubusercontent.com/Tefoh/57a0ef76ab63a974105b9f0fbcb8475b/raw/d49e3d8104992ff6cc6742fbe91b0c642287837a/products.json'
+      const {data} = await axios.get(
+        'http://127.0.0.1:8000/api/list-products/' + this.$route.params.id
       )
 
-      this.SET_PRODUCTS(data)
-      this.product = this.$store.getters['products/getProductById'](
-        parseInt(this.$route.params.id)
-      )
+      this.product = data.data
+      // this.SET_PRODUCT(data)
+      // this.product = this.$store.getters['products/getProductById'](
+      //   parseInt(this.$route.params.id)
+      // )
     }
   },
 

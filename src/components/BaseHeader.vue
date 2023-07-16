@@ -24,80 +24,80 @@
                   >home</router-link
                 >
               </li>
-              <li class="navbar__item navbar__item--has-sub">
-                <a @click.prevent href="" class="navbar__link">Categories</a>
-                <ul class="navbar__subset">
-                  <li class="navbar__item">
-                    <router-link :to="{ name: 'Category' }" class="navbar__link"
-                      >Menu 1</router-link
-                    >
-                  </li>
-                  <li class="navbar__item">
-                    <router-link :to="{ name: 'Category' }" class="navbar__link"
-                      >Menu 2</router-link
-                    >
-                  </li>
-                  <li class="navbar__item navbar__item--has-sub">
-                    <router-link :to="{ name: 'Category' }" class="navbar__link"
-                      >Menu 3</router-link
-                    >
-                    <ul class="navbar__subset">
-                      <li class="navbar__item">
-                        <router-link
-                          :to="{ name: 'Category' }"
-                          class="navbar__link"
-                          >Menu 1</router-link
-                        >
-                      </li>
-                      <li class="navbar__item">
-                        <router-link
-                          :to="{ name: 'Category' }"
-                          class="navbar__link"
-                          >Menu 2</router-link
-                        >
-                      </li>
-                      <li class="navbar__item navbar__item--has-sub">
-                        <a href="" class="navbar__link">Menu 3</a>
-                        <ul class="navbar__subset">
-                          <li class="navbar__item">
-                            <router-link
-                              :to="{ name: 'Category' }"
-                              class="navbar__link"
-                              >Menu 1</router-link
-                            >
-                          </li>
-                          <li class="navbar__item">
-                            <router-link
-                              :to="{ name: 'Category' }"
-                              class="navbar__link"
-                              >Menu 2</router-link
-                            >
-                          </li>
-                          <li class="navbar__item">
-                            <router-link
-                              :to="{ name: 'Category' }"
-                              class="navbar__link"
-                              >Menu 3</router-link
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="navbar__item">
-                <router-link :to="{ name: 'About' }" class="navbar__link"
-                  >About us</router-link
-                >
-              </li>
-              <li class="navbar__item">
-                <a
-                  href="https://github.com/Tefoh/vue-ecommerce-template"
-                  class="navbar__link"
-                  >Contact us(github)</a
-                >
-              </li>
+<!--              <li class="navbar__item navbar__item&#45;&#45;has-sub">-->
+<!--                <a @click.prevent href="" class="navbar__link">Categories</a>-->
+<!--                <ul class="navbar__subset">-->
+<!--                  <li class="navbar__item">-->
+<!--                    <router-link :to="{ name: 'Category' }" class="navbar__link"-->
+<!--                      >Menu 1</router-link-->
+<!--                    >-->
+<!--                  </li>-->
+<!--                  <li class="navbar__item">-->
+<!--                    <router-link :to="{ name: 'Category' }" class="navbar__link"-->
+<!--                      >Menu 2</router-link-->
+<!--                    >-->
+<!--                  </li>-->
+<!--                  <li class="navbar__item navbar__item&#45;&#45;has-sub">-->
+<!--                    <router-link :to="{ name: 'Category' }" class="navbar__link"-->
+<!--                      >Menu 3</router-link-->
+<!--                    >-->
+<!--                    <ul class="navbar__subset">-->
+<!--                      <li class="navbar__item">-->
+<!--                        <router-link-->
+<!--                          :to="{ name: 'Category' }"-->
+<!--                          class="navbar__link"-->
+<!--                          >Menu 1</router-link-->
+<!--                        >-->
+<!--                      </li>-->
+<!--                      <li class="navbar__item">-->
+<!--                        <router-link-->
+<!--                          :to="{ name: 'Category' }"-->
+<!--                          class="navbar__link"-->
+<!--                          >Menu 2</router-link-->
+<!--                        >-->
+<!--                      </li>-->
+<!--                      <li class="navbar__item navbar__item&#45;&#45;has-sub">-->
+<!--                        <a href="" class="navbar__link">Menu 3</a>-->
+<!--                        <ul class="navbar__subset">-->
+<!--                          <li class="navbar__item">-->
+<!--                            <router-link-->
+<!--                              :to="{ name: 'Category' }"-->
+<!--                              class="navbar__link"-->
+<!--                              >Menu 1</router-link-->
+<!--                            >-->
+<!--                          </li>-->
+<!--                          <li class="navbar__item">-->
+<!--                            <router-link-->
+<!--                              :to="{ name: 'Category' }"-->
+<!--                              class="navbar__link"-->
+<!--                              >Menu 2</router-link-->
+<!--                            >-->
+<!--                          </li>-->
+<!--                          <li class="navbar__item">-->
+<!--                            <router-link-->
+<!--                              :to="{ name: 'Category' }"-->
+<!--                              class="navbar__link"-->
+<!--                              >Menu 3</router-link-->
+<!--                            >-->
+<!--                          </li>-->
+<!--                        </ul>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li class="navbar__item">-->
+<!--                <router-link :to="{ name: 'About' }" class="navbar__link"-->
+<!--                  >About us</router-link-->
+<!--                >-->
+<!--              </li>-->
+<!--              <li class="navbar__item">-->
+<!--                <a-->
+<!--                  href="https://github.com/Tefoh/vue-ecommerce-template"-->
+<!--                  class="navbar__link"-->
+<!--                  >Contact us(github)</a-->
+<!--                >-->
+<!--              </li>-->
             </ul>
           </div>
           <div class="navbar__action">
@@ -115,31 +115,32 @@
                   class="header__dropdown-content header__dropdown-content--overflow"
                 >
                   <div
-                    class="header__basket-item"
+                    class="header__basket-item "
                     v-for="item in items"
                     :key="item.id"
                   >
                     <a href="" class="header__basket-link">
                       <img
-                        :src="require(`../assets/img/slider/${item.id}.jpg`)"
+                        :src="item['images']['data'][0]['link'][0]"
                         class="header__basket-img"
                       />
                     </a>
                     <div class="header__basket-details">
                       <h5>
                         <a class="header__basket-title" href=""
-                          >{{ item.name }} ({{ item.quantity }})</a
+                          >{{ item.title_fa }} </a
                         >
                       </h5>
                       <div class="header__basket-price">
                         {{ formattedPrice(item.price) }}
+                        تومان
                       </div>
                       <button
                         @click="removeItem(item)"
                         type="button"
                         class="header__basket-remove"
                       >
-                        remove
+                        حذف
                       </button>
                     </div>
                   </div>
@@ -147,7 +148,7 @@
                     <router-link
                       :to="{ name: 'Cart' }"
                       class="btn btn--boxshadow btn--brand w--100 text-center"
-                      >complete order</router-link
+                      >تکمیل خرید</router-link
                     >
                   </div>
                 </div>
@@ -231,10 +232,18 @@ export default {
       this.$emit('show-sidebar', this.showSideBar)
     },
     formattedPrice(price) {
-      return new Intl.NumberFormat('en', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(price)
+      let p = price.split('.');
+      return this.comma(p[0])
+    },
+    comma(num) {
+      var str = num.toString().split('.');
+      if (str[0].length >= 5) {
+        str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+      }
+      if (str[1] && str[1].length >= 5) {
+        str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+      }
+      return str.join('.');
     },
     ...mapActions('cart', ['removeItem'])
   },

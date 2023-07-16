@@ -6,9 +6,9 @@ export const getters = {
     }, 0)
   },
 
-  tax: (state, getters) => getters.subtotal * 0.09,
+  tax: (state, getters) => getters.subtotal * 0.01,
 
-  total: (state, getters) => getters.subtotal + getters.tax,
+  total: (state, getters) => getters.subtotal,
 
   count: (state) => state.items.length
 }

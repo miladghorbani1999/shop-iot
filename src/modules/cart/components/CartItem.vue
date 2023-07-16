@@ -1,10 +1,10 @@
 <template>
-  <div class="cart__item">
+  <div v-if="item" class="cart__item">
     <div class="cart__row">
       <div class="cart__image">
         <a href="" class="cart__image-link">
           <img
-            :src="require(`@/assets/img/slider/${item.id}.jpg`)"
+            :src="item['images']['data'][0]['link'][0]"
             alt=""
             class="cart__image-img"
           />
@@ -16,12 +16,15 @@
             :to="{ name: 'Product', params: { id: item.id } }"
             class="cart__details-link"
           >
-            {{ item.name }}
+            {{ item.title_fa }}
           </router-link>
         </h5>
-        <p>price: {{ formattedPrice(item.price) }}</p>
+        <p>قیمت:
+          {{ formattedPrice(item.price) }}
+          تومان
+        </p>
         <div class="cart__deatils-code">
-          quantity in cart :{{ item.quantity }}
+          تعداد :{{ item.quantity }}
         </div>
       </div>
       <div class="cart__amounts">
@@ -40,7 +43,7 @@
             style="margin-right: 1rem"
             type="button"
           >
-            set to cart
+            افزودن به سبد خرید
           </button>
           <button
             type="button"
@@ -48,14 +51,15 @@
             class="cart__amounts-remove"
             style="cursor: pointer"
           >
-            remove
+            حذف
           </button>
         </div>
       </div>
       <div class="cart__total">
         <div class="cart__total-div">
-          <h6 class="cart__total-title">total</h6>
+          <h6 class="cart__total-title">جمع محصول</h6>
           {{ formattedPrice(item.price * item.quantity) }}
+          تومان
         </div>
       </div>
     </div>
@@ -83,12 +87,23 @@ export default {
 
   methods: {
     formattedPrice(price) {
-      return new Intl.NumberFormat('en', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(price)
+      let p = String(price).split('.');
+      return this.comma(p[0])
+    },
+    comma(num) {
+      var str = num.toString().split('.');
+      if (str[0].length >= 5) {
+        str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+      }
+      if (str[1] && str[1].length >= 5) {
+        str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+      }
+      return str.join('.');
     },
     ...mapActions('cart', ['changeQuantity', 'removeItem'])
+  },
+  mounted() {
+    console.log(this.item)
   }
 }
 </script>

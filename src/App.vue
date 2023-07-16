@@ -2,7 +2,7 @@
   <div id="app">
     <BaseHeader @show-sidebar="handleSidebar" />
     <router-view />
-    <BaseFooter :showSideBar="isShowSideBar" />
+<!--    <BaseFooter :showSideBar="isShowSideBar" />-->
   </div>
 </template>
 
